@@ -1,14 +1,13 @@
 const mongoose = require('mongoose');
 
 
-const Photographer = mongoose.Schema({
+const PhotographerSchema = mongoose.Schema({
     name: { type: String },
-    photographerAlias: { type: String },
+    photographerAlias: [{ type: String }],
+    website_url: {type: String},
+    instagram_url: {type: String},
     created_by: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    reviews: [{
-        _id: false,
-        review: { type: mongoose.Schema.Types.ObjectId, ref: 'Review' },
-    }],
+    reviews: [{type: mongoose.Schema.Types.ObjectId, ref: 'Review'}],
 
 }, {
     timestamps: true
@@ -17,6 +16,8 @@ const Photographer = mongoose.Schema({
 
 
 
-const Photographer = mongoose.model('Photographer', PhotographerSchema);
+module.exports = mongoose.model('Photographer', PhotographerSchema);
 
-module.exports = { Photographer };
+// const Photographer = mongoose.model('Photographer', PhotographerSchema);
+
+// module.exports = { Photographer };

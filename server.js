@@ -5,10 +5,13 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const winston = require('winston');
 const User = require('./models/user.model');
+const Photographer = require('./models/photographer.model');
 
 
 
 const { router: userRouter } = require('./routers/user.router');
+
+const { router: photographerRouter } = require('./routers/photographer.router');
 
 // const { router: rideRouter  } = require('./routers/ride.router');
 
@@ -27,6 +30,7 @@ app.use((req, res, next) => {
     next();
 });
 
+  
 // Body Parser
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -39,7 +43,7 @@ if (ENV === 'development') {
 
 
 /* Routes */
-app.get('/status', (req, res) => {
+app.get('/api/status', (req, res) => {
     res.json({ processId: process.pid });
 });
 
@@ -59,6 +63,9 @@ app.get('/status', (req, res) => {
 
 
 app.use('/api', userRouter );
+
+app.use('api', photographerRouter);
+
 // app.use('/api', rideRouter );
 /* Starting Scripts */
 let server;

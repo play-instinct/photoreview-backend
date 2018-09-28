@@ -16,11 +16,9 @@ router.route('/users')
     .post(disableWithToken, requiredFields('email', 'password'), (req, res) => {
         User.create({
             email: req.body.email,
-            name: req.body.name,
             password: req.body.password,
-            isApproved: req.body.is_approved
         })
-        .then(() => res.status(201).send())
+        .then(() => res.json({}))
         .catch(report => res.status(400).json(errorsParser.generateErrorResponse(report)));
     })
     .get(passport.authenticate('jwt', { session: false }), (req, res) => {
@@ -62,7 +60,12 @@ router.post('/login', disableWithToken, requiredFields('email', 'password'), (re
             const token = jwt.sign(tokenPayload, config.SECRET, {
                 expiresIn: config.EXPIRATION,
             });
-            return res.json({ token: `Bearer ${token}` });
+            return res.json({ 
+                token: `Bearer ${token}`,  
+                _id: foundUser._id,
+                email: foundUser.email,
+                username: foundUser.username
+            });
         });
     })
     .catch(report => res.status(400).json(errorsParser.generateErrorResponse(report)));

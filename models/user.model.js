@@ -3,14 +3,11 @@ const bcrypt = require('bcrypt');
 const uniqueValidator = require('mongoose-unique-validator');
 
 const UserSchema = mongoose.Schema({
-    name: { type: String, required: true },
+    name: { type: String },
     role: {type: String,
         enum: ['user', 'admin'],
         default: 'user'},
-    email: { type: String, required: true },
-    reviews: [
-        { type: mongoose.Schema.Types.ObjectId, ref: 'Review' },
-     ],
+    email: { type: String },
     isApproved: { type: Boolean },
     isBanned: { type: Boolean },
     banReason: { type: String },

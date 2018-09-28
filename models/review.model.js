@@ -2,30 +2,31 @@ const mongoose = require('mongoose');
 
 
 const ReviewSchema = mongoose.Schema({
-    photographersName: { type: String, required: true },
-    photographerAlias: { type: String },
-    activeLocation: {
-        type: String,
-    },
 
     starRating: {
-        type: Num,
+        type: Number,
     },
     status: {type: String,
-        enum: ['isApproved', 'isRejected', 'isPostponed'],
-        default: 'isUnrated'},
+        enum: ['approved', 'rejected', 'postponed', 'unrated'],
+        default: 'unrated'},
 
     encounterDate: {
         type: Date,
         required: true,
     },
 
+    encounterLocation: {
+        type: String,
+        required: true,
+    },
+
     reviewText: {
         type: String,
     },
-    Author: [
+    author: [
         { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     ],
+    comments: [{type: mongoose.Schema.Types.ObjectId, ref: 'Comment'}]
     
 },{
     timestamps: true
@@ -33,6 +34,5 @@ const ReviewSchema = mongoose.Schema({
     });
 
 
-const Review = mongoose.model('Review', ReviewSchema);
+module.exports = mongoose.model('Review', ReviewSchema);
 
-module.exports = { Review };
