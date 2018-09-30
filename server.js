@@ -47,26 +47,12 @@ app.get('/api/status', (req, res) => {
     res.json({ processId: process.pid });
 });
 
-// app.get('/dashboard', (req, res) => {
-//     User.create({
-//         email: "helloykat@gmail.com",
-//         name: "Danielle Jbali",
-//         password: "12345",
-//         isApproved: true,
-//         phoneNumber: "5103880622",
-//         homeAddress: "102 hamilton place Oakland ca 94621"
-//     })
-//     .then(() => res.status(201).send())
-
-// });
-
 
 
 app.use('/api', userRouter );
+app.use('/api', photographerRouter);
 
-app.use('api', photographerRouter);
 
-// app.use('/api', rideRouter );
 /* Starting Scripts */
 let server;
 function runServer(databaseUrl) {

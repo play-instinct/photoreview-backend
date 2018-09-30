@@ -11,13 +11,11 @@ const ReviewSchema = mongoose.Schema({
         default: 'unrated'},
 
     encounterDate: {
-        type: Date,
-        required: true,
+        type: Date
     },
 
     encounterLocation: {
-        type: String,
-        required: true,
+        type: String
     },
 
     reviewText: {

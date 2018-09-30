@@ -16,7 +16,7 @@ const router = express.Router();
 router.route('/reviews/:id')
     .get(passport.authenticate('jwt', { session: false }), (req, res) => {
         Review.findById(req.params.id)
-        .then(user => res.json({ user }));
+        .then(review => res.json({ review }));
     });
 
 

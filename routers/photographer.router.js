@@ -51,6 +51,10 @@ router.route('/photographers')
         .then(() => res.json({}))
         .catch(report => res.status(400).json(errorsParser.generateErrorResponse(report)));
     })
+    .get(passport.authenticate('jwt', { session: false }), (req, res) => {
+        Photographer.find()
+        .then(photographers => res.json(photographers));
+    })
 
 //route to photographer must populate reviews as well 
 
@@ -58,7 +62,7 @@ router.route('/photographers/:id')
     .get(passport.authenticate('jwt', { session: false }), (req, res) => {
         Photographer.findById(req.params.id)
         .populate('reviews')
-        .then(user => res.json({ user }));
+        .then(photographer => res.json({ photographer }));
     });
 
 
